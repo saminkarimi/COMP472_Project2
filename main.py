@@ -51,19 +51,27 @@ plt.ylabel('Count')
 
 plt.show()
 
-user_message = input("Enter a message: ")
+print("Type 'quit' to exit.")
 
-user_vector = vectorizer.transform([user_message])
+while True:
 
-prediction = model.predict(user_vector)
+    user_message = input("Enter a message: ")
 
-probability = model.predict_proba(user_vector)
+    if user_message.lower() == "quit":
+        print("Goodbye!")
+        break
 
-confidence = max(probability[0]) * 100
+    user_vector = vectorizer.transform([user_message])
 
-if prediction[0] == "spam":
-    print("Prediction: SPAM")
-else:
-    print("Prediction: HAM")
+    prediction = model.predict(user_vector)
 
-print("Confidence:", round(confidence, 2), "%")
+    probability = model.predict_proba(user_vector)
+
+    confidence = max(probability[0]) * 100
+
+    if prediction[0] == "spam":
+        print("Prediction: SPAM")
+    else:
+        print("Prediction: HAM")
+
+    print("Confidence:", round(confidence, 2), "%")
